@@ -22,7 +22,22 @@ class filelist implements ISite, ISearch, IVerify {
      * @return {boolean}
      */
     public function Verify() {
-        return true;
+        $check = curl_init();
+        $params = array(
+            "username" => $this->username,
+            "passkey"  => $this->password
+        );
+        $auth_url = filelist::SITE.'?'.http_build_query($params);
+        curl_setopt($check, CURLOPT_URL, $auth_url);
+        curl_setopt($check, CURLOPT_RETURNTRANSFER, true);
+        $result = curl_exec($check);
+        curl_close($check);
+
+        if (strpos($result,"Invalid action") !== false) {
+            return true;
+        } else{
+            return false;
+        };
     }
 
    
