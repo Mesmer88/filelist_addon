@@ -17,18 +17,16 @@ class filelist implements ISite, ISearch, IVerify {
         $this->password = $password;
     }
 
-    /*
-     * Verify()
-     * @return {boolean}
-     */
     public function Verify() {
         $check = curl_init();
-        $params = array(
-            "username" => $this->username,
-            "passkey"  => $this->password
+        $headers = array (
+            'Authorization: Basic '. base64_encode($this->username.':'.$this->password),
         );
-        $auth_url = filelist::SITE.'?'.http_build_query($params);
+        $auth_url = filelist::SITE;
         curl_setopt($check, CURLOPT_URL, $auth_url);
+        curl_setopt($check, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+        curl_setopt($check, CURLOPT_HTTPHEADER, $headers);
+
         curl_setopt($check, CURLOPT_RETURNTRANSFER, true);
         $result = curl_exec($check);
         curl_close($check);
@@ -40,7 +38,12 @@ class filelist implements ISite, ISearch, IVerify {
         };
     }
 
-   
+
+
+
+
+
+
    /*
      * Search()
      * @param {string} $keyword
@@ -87,15 +90,14 @@ class filelist implements ISite, ISearch, IVerify {
                 }
             }
         };
-        
-        
 
         $request = array(
             "url"       => filelist::SITE,
             "body"      => true,
+            "header"    => array(
+                'Authorization: Basic '. base64_encode($this->username.':'.$this->password),
+            ),
             "params"    => array (
-                "username" => $this->username,
-                "passkey"  => $this->password,
                 "action"   => "search-torrents",
                 "type"     => "name",
                 "query"    => "$keyword"
@@ -104,7 +106,6 @@ class filelist implements ISite, ISearch, IVerify {
         if (!$ajax->request($request, $success)) {
             echo "error";
         };
-        
         
         return $found;
     }
