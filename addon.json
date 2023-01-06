@@ -1,0 +1,45 @@
+{
+    "author": "unknow",
+    "website": "www.filelist.io",
+    "name": "filelist.io",
+    "addon": "filelist.io.php",
+    "class": "filelist",
+    "hosts": [
+        "filelist.io"
+    ],
+    "domain": "filelist.io",
+    "version": 100,
+    "interface": [
+        "ISearch",
+        "IVerify"
+    ],
+    "qpkg_dependencies": {
+        "DownloadStation": "5.0.1"
+    },
+    "description": {
+        "CZE": "",
+        "DAN": "",
+        "DUT": "",
+        "ENG": "Filelist",
+        "ESM": "",
+        "FIN": "",
+        "FRE": "",
+        "GER": "",
+        "GRK": "",
+        "HUN": "",
+        "ITA": "",
+        "JPN": "",
+        "KOR": "",
+        "NOR": "",
+        "POL": "",
+        "POR": "",
+        "ROM": "",
+        "RUS": "",
+        "SCH": "",
+        "SPA": "",
+        "SWE": "",
+        "TCH": "",
+        "THA": "",
+        "TUR": ""
+    }
+}
